@@ -22,6 +22,7 @@ import { MobileStickyCta } from "@/components/mobile-sticky-cta";
 import { MotionCard, MotionSection } from "@/components/motion-section";
 import { PhotoPlaceholders } from "@/components/photo-placeholders";
 import { Badge, ButtonLink, SectionHeading } from "@/components/ui";
+import { sitePath } from "@/lib/site-path";
 import {
   bodyRepairItems,
   business,
@@ -108,7 +109,7 @@ function Hero() {
   return (
     <section id="top" className="relative min-h-[calc(100vh-64px)] border-b border-white/10 text-white">
       <Image
-        src="/images/katyusha-industrial-hero.png"
+        src={sitePath("/images/katyusha-industrial-hero.png")}
         alt="Нейтральное тематическое фото индустриального автосервиса"
         fill
         priority
@@ -309,7 +310,7 @@ function BodyRepairSection() {
 
           <div className="relative overflow-hidden rounded-xl border border-white/12 bg-steel-900 shadow-soft">
             <Image
-              src="/images/katyusha-body-repair.png"
+              src={sitePath("/images/katyusha-body-repair.png")}
               alt="Нейтральное тематическое фото кузовного ремонта и подготовки к покраске"
               width={1200}
               height={800}
@@ -370,7 +371,7 @@ function PriceSection() {
       <div className="container-page grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="relative overflow-hidden rounded-xl border border-white/12 shadow-soft">
           <Image
-            src="/images/katyusha-diagnostics.png"
+            src={sitePath("/images/katyusha-diagnostics.png")}
             alt="Нейтральное тематическое фото диагностики и механического сервиса"
             width={1200}
             height={800}

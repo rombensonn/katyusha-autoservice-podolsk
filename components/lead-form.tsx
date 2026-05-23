@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Send, ShieldCheck } from "lucide-react";
 import { business } from "@/lib/site-data";
 import { contactMethods } from "@/lib/lead-schema";
+import { sitePath } from "@/lib/site-path";
 import { cn } from "@/lib/utils";
 
 type FormState = {
@@ -184,7 +185,7 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         />
         <span>
           Я согласен(на) на обработку персональных данных и принимаю{" "}
-          <a className="font-bold text-signal-200 underline-offset-4 hover:underline" href="/privacy">
+          <a className="font-bold text-signal-200 underline-offset-4 hover:underline" href={sitePath("/privacy")}>
             Политику обработки персональных данных
           </a>
           .

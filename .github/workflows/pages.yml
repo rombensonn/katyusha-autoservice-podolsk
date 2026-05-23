@@ -35,6 +35,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: /katyusha-autoservice-podolsk
           NEXT_PUBLIC_SITE_URL: https://rombensonn.github.io/katyusha-autoservice-podolsk
 
       - name: Configure Pages

@@ -1,25 +1,26 @@
 import Image from "next/image";
 import { Camera, Gauge, Paintbrush } from "lucide-react";
+import { sitePath } from "@/lib/site-path";
 
 const photos = [
   {
     title: "Индустриальная зона сервиса",
     text: "Нейтральное тематическое фото для визуального языка сайта. Реальные фото сервиса можно поставить вместо него.",
-    src: "/images/katyusha-industrial-hero.png",
+    src: sitePath("/images/katyusha-industrial-hero.png"),
     alt: "Нейтральная индустриальная фотография автосервисной зоны",
     icon: Camera
   },
   {
     title: "Диагностика и механика",
     text: "Тематический кадр про поиск неисправностей, инструменты и работу с автомобилем.",
-    src: "/images/katyusha-diagnostics.png",
+    src: sitePath("/images/katyusha-diagnostics.png"),
     alt: "Нейтральная фотография диагностики и инструментов в автосервисе",
     icon: Gauge
   },
   {
     title: "Кузовной ремонт",
     text: "Тематическое фото про подготовку кузовного элемента к ремонту и покраске.",
-    src: "/images/katyusha-body-repair.png",
+    src: sitePath("/images/katyusha-body-repair.png"),
     alt: "Нейтральная фотография кузовного ремонта и подготовки к покраске",
     icon: Paintbrush
   }
