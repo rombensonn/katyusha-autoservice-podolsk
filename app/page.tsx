@@ -35,6 +35,9 @@ import {
   trustCards
 } from "@/lib/site-data";
 
+const yandexMapWidgetUrl =
+  "https://yandex.ru/map-widget/v1/?ll=37.581335%2C55.411363&mode=search&oid=242675947070&ol=biz&z=17";
+
 export default function HomePage() {
   return (
     <main className="industrial-surface overflow-hidden pb-24 md:pb-0">
@@ -121,17 +124,6 @@ function Hero() {
 
       <div className="container-page relative grid min-h-[calc(100vh-64px)] gap-10 py-10 lg:grid-cols-[1fr_430px] lg:items-center">
         <div className="max-w-4xl">
-          <nav className="mb-6 text-sm text-steel-300" aria-label="Хлебные крошки">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <a href="#top" className="font-bold text-white hover:text-signal-200">
-                  Главная
-                </a>
-              </li>
-              <li aria-hidden>/</li>
-              <li>Автосервис Катюша Подольск</li>
-            </ol>
-          </nav>
           <Badge>5,0 на Яндекс.Картах · 43 оценки · 32 отзыва</Badge>
           <h1 className="mt-6 max-w-3xl text-[2.55rem] font-black leading-[1.02] tracking-[-0.01em] text-white sm:text-5xl lg:text-7xl">
             Автосервис “Катюша” в Подольске
@@ -482,7 +474,7 @@ function CarsSection() {
 function AddressSection() {
   return (
     <MotionSection id="contacts" className="section-pad border-y border-white/10 bg-steel-950" ariaLabelledby="contacts-title">
-      <div className="container-page grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
+      <div className="container-page grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
         <div>
           <SectionHeading
             id="contacts-title"
@@ -491,13 +483,13 @@ function AddressSection() {
             title="Найти сервис должно быть проще, чем искать въезд"
             text="Главный ориентир для приезда - ворота 6Д на ул. Машиностроителей, 44Д в Подольске."
           />
-          <div className="mt-7 grid gap-3">
+          <div className="mt-6 grid gap-2 sm:grid-cols-2">
             <InfoRow icon={MapPinned} title="Адрес" text={business.addressShort} />
             <InfoRow icon={Navigation} title="Ориентир" text={business.landmark} />
             <InfoRow icon={Phone} title="Телефон" text={business.phoneFormatted} href={`tel:${business.phone}`} />
             <InfoRow icon={Clock3} title="График" text={`${business.schedule.weekdays}; ${business.schedule.sunday}`} />
-            <InfoRow icon={CreditCard} title="Оплата картой" text="доступна" />
-            <InfoRow icon={Accessibility} title="Доступность входа на инвалидной коляске" text="доступно" />
+            <InfoRow icon={CreditCard} title="Оплата" text="картой доступна" />
+            <InfoRow icon={Accessibility} title="Доступность" text="вход на коляске доступен" />
           </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href={`tel:${business.phone}`} icon={Phone} ariaLabel={`Позвонить ${business.phoneFormatted}`}>
@@ -509,23 +501,15 @@ function AddressSection() {
           </div>
         </div>
 
-        <div className="glass-panel flex min-h-[420px] flex-col justify-between rounded-xl p-6">
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-signal-300">Яндекс.Карты</p>
-            <h3 className="mt-4 text-3xl font-black leading-tight text-white">{business.addressFull}</h3>
-            <p className="mt-4 max-w-md leading-7 text-steel-200">
-              Для маршрута используется карточка на Яндекс.Картах. Координаты на сайт не добавлены, потому что во входных данных их нет.
-            </p>
-          </div>
-          <a
-            href={business.mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex min-h-12 w-fit cursor-pointer items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-extrabold text-steel-950 transition-colors hover:bg-signal-100"
-          >
-            Открыть в Яндекс.Картах
-            <ExternalLink className="h-4 w-4" aria-hidden />
-          </a>
+        <div className="min-h-[420px] overflow-hidden rounded-xl border border-white/12 bg-steel-900 shadow-card">
+          <iframe
+            src={yandexMapWidgetUrl}
+            title="Локация автосервиса Катюша на Яндекс.Картах"
+            className="h-full min-h-[420px] w-full border-0"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
     </MotionSection>
