@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Send, ShieldCheck } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { PaperPlaneTilt, ShieldCheck } from "@phosphor-icons/react";
 import { business } from "@/lib/site-data";
 import { contactMethods } from "@/lib/lead-schema";
 import { sitePath } from "@/lib/site-path";
@@ -11,7 +11,8 @@ import { cn } from "@/lib/utils";
 type FormState = {
   name: string;
   phone: string;
-  car: string;
+  carBrand: string;
+  carModel: string;
   problem: string;
   contactMethod: (typeof contactMethods)[number];
   consent: boolean;
@@ -21,12 +22,48 @@ type FormState = {
 const initialState: FormState = {
   name: "",
   phone: "",
-  car: "",
+  carBrand: "",
+  carModel: "",
   problem: "",
   contactMethod: "Звонок",
   consent: false,
   company: ""
 };
+
+const carModelsByBrand: Record<string, string[]> = {
+  LADA: ["Granta", "Vesta", "Niva Travel", "Niva Legend", "Largus", "Xray", "Kalina", "Priora"],
+  Haval: ["Jolion", "M6", "F7", "Dargo", "H3", "H5", "H9"],
+  Chery: ["Tiggo 4", "Tiggo 7 Pro Max", "Tiggo 8 Pro Max", "Tiggo 9", "Arrizo 8"],
+  Geely: ["Monjaro", "Coolray", "Atlas", "Tugella", "Emgrand", "Okavango"],
+  Changan: ["UNI-S", "CS55 Plus", "CS35 Plus", "UNI-K", "Alsvin", "CS75 Plus"],
+  Belgee: ["X50", "X70"],
+  OMODA: ["C5", "S5"],
+  JAECOO: ["J7", "J8"],
+  EXEED: ["LX", "TXL", "VX", "RX"],
+  TANK: ["300", "500"],
+  GAC: ["GS3", "GS8", "Empow", "M8"],
+  Jetour: ["Dashing", "X70 Plus", "T2"],
+  Kaiyi: ["E5", "X3", "X7"],
+  Москвич: ["3", "3e", "6", "8"],
+  УАЗ: ["Patriot", "Pickup", "Hunter", "Profi"],
+  Kia: ["Rio", "Ceed", "Sportage", "Sorento", "K5", "Cerato", "Seltos"],
+  Hyundai: ["Solaris", "Creta", "Tucson", "Santa Fe", "Sonata", "Elantra"],
+  Toyota: ["Camry", "Corolla", "RAV4", "Land Cruiser Prado", "Land Cruiser 300", "Highlander"],
+  Volkswagen: ["Polo", "Tiguan", "Passat", "Jetta", "Touareg"],
+  Skoda: ["Rapid", "Octavia", "Kodiaq", "Karoq", "Superb"],
+  Renault: ["Logan", "Duster", "Sandero", "Kaptur", "Arkana"],
+  Nissan: ["Qashqai", "X-Trail", "Almera", "Terrano", "Teana"],
+  Mitsubishi: ["Outlander", "Pajero Sport", "ASX", "Lancer"],
+  Mazda: ["CX-5", "Mazda 3", "Mazda 6", "CX-9"],
+  Ford: ["Focus", "Mondeo", "Kuga", "Transit"],
+  Chevrolet: ["Niva", "Lacetti", "Cruze", "Aveo", "Captiva"],
+  BMW: ["3 Series", "5 Series", "X1", "X3", "X5"],
+  "Mercedes-Benz": ["C-Class", "E-Class", "GLA", "GLC", "GLE"],
+  Audi: ["A3", "A4", "A6", "Q3", "Q5", "Q7"],
+  "Другая марка": ["Другая модель"]
+};
+
+const carBrands = Object.keys(carModelsByBrand);
 
 export function LeadForm({ compact = false }: { compact?: boolean }) {
   const [form, setForm] = useState<FormState>(initialState);
@@ -36,6 +73,10 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
+  };
+
+  const updateCarBrand = (value: string) => {
+    setForm((current) => ({ ...current, carBrand: value, carModel: "" }));
   };
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -55,7 +96,13 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
+          name: form.name,
+          phone: form.phone,
+          car: [form.carBrand, form.carModel].filter(Boolean).join(" "),
+          problem: form.problem,
+          contactMethod: form.contactMethod,
+          consent: form.consent,
+          company: form.company,
           sourcePage: typeof window !== "undefined" ? window.location.href : "",
           submittedAt: new Date().toISOString()
         })
@@ -79,13 +126,14 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
   }
 
   const fieldClass =
-    "mt-2 w-full rounded-lg border border-white/14 bg-steel-950/70 px-4 py-3 text-base text-white shadow-inner-line transition-colors duration-200 placeholder:text-steel-400 hover:border-signal-300/50";
+    "mt-2 w-full rounded-2xl border border-white/14 bg-steel-950/78 px-4 py-3 text-base font-normal text-white shadow-inner-line transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] placeholder:text-steel-400 hover:border-signal-300/50 focus:border-signal-300";
+  const selectedModels = form.carBrand ? carModelsByBrand[form.carBrand] ?? [] : [];
 
   return (
     <form
       onSubmit={submit}
       className={cn(
-        "glass-panel rounded-xl p-5 md:p-7",
+        "glass-panel rounded-[2rem] p-5 md:p-7",
         compact && "shadow-card"
       )}
     >
@@ -116,15 +164,40 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         </label>
       </div>
 
-      <label className="mt-4 block text-sm font-extrabold text-white">
-        Марка и модель автомобиля
-        <input
-          value={form.car}
-          onChange={(event) => update("car", event.target.value)}
-          className={fieldClass}
-          placeholder="Например: Kia Rio, Lada Vesta"
-        />
-      </label>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <label className="block text-sm font-extrabold text-white">
+          Марка автомобиля
+          <select
+            value={form.carBrand}
+            onChange={(event) => updateCarBrand(event.target.value)}
+            className={fieldClass}
+          >
+            <option value="">Выберите марку</option>
+            {carBrands.map((brand) => (
+              <option key={brand} value={brand}>
+                {brand}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="block text-sm font-extrabold text-white">
+          Модель
+          <select
+            value={form.carModel}
+            onChange={(event) => update("carModel", event.target.value)}
+            className={fieldClass}
+            disabled={!form.carBrand}
+          >
+            <option value="">{form.carBrand ? "Выберите модель" : "Сначала марка"}</option>
+            {selectedModels.map((model) => (
+              <option key={model} value={model}>
+                {model}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       <label className="mt-4 block text-sm font-extrabold text-white">
         Что случилось с автомобилем?
@@ -146,7 +219,7 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
               className={cn(
                 "flex cursor-pointer items-center justify-center rounded-lg border px-3 py-3 text-sm font-extrabold transition-colors duration-200",
                 form.contactMethod === method
-                  ? "border-signal-300 bg-signal-400/13 text-signal-100"
+                  ? "border-signal-300 bg-signal-300/13 text-signal-100"
                   : "border-white/14 bg-white/7 text-steel-200 hover:border-signal-300/40"
               )}
             >
@@ -196,22 +269,26 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-katyusha-700 px-6 py-3 text-sm font-extrabold text-white shadow-soft transition-colors duration-200 hover:bg-katyusha-800 disabled:cursor-not-allowed disabled:opacity-60"
+          className="group inline-flex min-h-12 cursor-pointer items-center justify-center gap-3 rounded-full bg-signal-300 px-3 py-2 pl-6 text-sm font-extrabold text-steel-950 shadow-[0_18px_55px_rgba(245,172,19,0.2)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-signal-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "loading" ? (
             <motion.span
-              aria-hidden
-              className="h-4 w-4 rounded-full border-2 border-white/50 border-t-white"
-              animate={reduceMotion ? undefined : { rotate: 360 }}
-              transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-            />
+              className="inline-block"
+              initial={reduceMotion ? false : { opacity: 0.72 }}
+              animate={reduceMotion ? undefined : { opacity: [0.72, 1, 0.72] }}
+              transition={{ duration: 0.9, repeat: Infinity, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Отправляем
+            </motion.span>
           ) : (
-            <Send className="h-4 w-4" aria-hidden />
+            <span>Отправить заявку</span>
           )}
-          Отправить заявку
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-steel-950 text-white transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:scale-105">
+            <PaperPlaneTilt className="h-4 w-4" weight="bold" aria-hidden />
+          </span>
         </button>
         <p className="flex items-center gap-2 text-sm text-steel-300">
-          <ShieldCheck className="h-4 w-4 text-signal-300" aria-hidden />
+          <ShieldCheck className="h-4 w-4 text-signal-300" weight="duotone" aria-hidden />
           Данные нужны только для связи по заявке.
         </p>
       </div>
@@ -224,8 +301,9 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
               initial={reduceMotion ? false : { opacity: 0, y: 8 }}
               animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               className={cn(
-                "rounded-lg px-4 py-3 text-sm font-extrabold",
+                "rounded-2xl px-4 py-3 text-sm font-extrabold",
                 status === "success"
                   ? "bg-emerald-400/12 text-emerald-100"
                   : "bg-katyusha-500/14 text-katyusha-100"

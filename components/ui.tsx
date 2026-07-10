@@ -1,7 +1,10 @@
 import Link from "next/link";
 import type { ComponentType, ReactNode } from "react";
-import { ArrowRight } from "lucide-react";
+import type { IconProps } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
+
+type IconComponent = ComponentType<IconProps>;
 
 type ButtonLinkProps = {
   href: string;
@@ -9,18 +12,18 @@ type ButtonLinkProps = {
   variant?: "primary" | "secondary" | "ghost" | "light";
   className?: string;
   external?: boolean;
-  icon?: ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  icon?: IconComponent;
   ariaLabel?: string;
 };
 
 const variants = {
   primary:
-    "bg-katyusha-700 text-white shadow-soft hover:bg-katyusha-800 active:bg-katyusha-900",
+    "bg-signal-300 text-steel-950 shadow-[0_18px_55px_rgba(245,172,19,0.2)] hover:bg-signal-200",
   secondary:
-    "border border-white/16 bg-white/8 text-white shadow-inner-line backdrop-blur hover:border-signal-300/60 hover:bg-white/12",
-  ghost: "text-white/86 hover:bg-white/10",
+    "border border-white/16 bg-white/9 text-white shadow-inner-line hover:border-signal-300/50 hover:bg-white/13",
+  ghost: "border border-transparent text-white/86 hover:border-white/12 hover:bg-white/8",
   light:
-    "border border-steel-300 bg-white text-steel-950 shadow-card hover:border-katyusha-300 hover:bg-concrete-50"
+    "border border-steel-200 bg-steel-950 text-white shadow-[0_18px_50px_rgba(10,14,18,0.15)] hover:border-signal-300/60"
 };
 
 export function ButtonLink({
@@ -33,15 +36,23 @@ export function ButtonLink({
   ariaLabel
 }: ButtonLinkProps) {
   const classes = cn(
-    "inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-extrabold transition-colors duration-200",
+    "group inline-flex min-h-12 cursor-pointer items-center justify-center gap-3 rounded-full px-3 py-2 pl-6 text-sm font-extrabold transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]",
     variants[variant],
     className
   );
 
   const content = (
     <>
-      <span>{children}</span>
-      <Icon className="h-4 w-4 shrink-0" aria-hidden />
+      <span className="whitespace-nowrap">{children}</span>
+      <span
+        className={cn(
+          "flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:scale-105",
+          variant === "primary" ? "bg-steel-950 text-white" : "bg-white/10 text-signal-200",
+          variant === "light" && "bg-signal-300 text-steel-950"
+        )}
+      >
+        <Icon className="h-4 w-4 shrink-0" weight="bold" aria-hidden />
+      </span>
     </>
   );
 
@@ -76,12 +87,14 @@ export function SectionHeading({
   tone?: "dark" | "light";
 }) {
   return (
-    <div className={cn("max-w-3xl", className)}>
+    <div className={cn("max-w-[780px]", className)}>
       {eyebrow ? (
         <p
           className={cn(
-            "mb-3 text-sm font-extrabold uppercase tracking-[0.18em]",
-            tone === "light" ? "text-signal-300" : "text-katyusha-700"
+            "mb-4 inline-flex rounded-full border px-3 py-1 text-[0.68rem] font-extrabold uppercase",
+            tone === "light"
+              ? "border-signal-300/25 bg-signal-300/10 text-signal-200"
+              : "border-steel-300 bg-white text-steel-700"
           )}
         >
           {eyebrow}
@@ -90,14 +103,14 @@ export function SectionHeading({
       <h2
         id={id}
         className={cn(
-          "text-balance text-3xl font-extrabold leading-tight md:text-4xl",
+          "text-balance text-[2.45rem] font-black leading-[0.98] md:text-5xl",
           tone === "light" ? "text-white" : "text-steel-950"
         )}
       >
         {title}
       </h2>
       {text ? (
-        <p className={cn("mt-4 text-lg leading-8", tone === "light" ? "text-steel-200" : "text-steel-700")}>
+        <p className={cn("mt-5 max-w-[62ch] text-base leading-7 md:text-lg", tone === "light" ? "text-steel-200" : "text-steel-700")}>
           {text}
         </p>
       ) : null}
@@ -109,7 +122,7 @@ export function Badge({ children, className }: { children: ReactNode; className?
   return (
     <span
       className={cn(
-        "inline-flex max-w-full flex-wrap items-center rounded-md border border-signal-300/35 bg-signal-400/12 px-3 py-1.5 text-left text-sm font-extrabold leading-5 text-signal-100 shadow-inner-line",
+        "inline-flex max-w-full flex-wrap items-center rounded-full border border-signal-300/35 bg-signal-300/12 px-4 py-2 text-left text-sm font-extrabold leading-5 text-signal-100 shadow-inner-line",
         className
       )}
     >

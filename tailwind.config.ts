@@ -78,21 +78,13 @@ const config: Config = {
         "inner-line": "inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.24)"
       },
       fontFamily: {
-        sans: ["var(--font-manrope)", "Inter", "system-ui", "sans-serif"]
+        sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"]
       },
       borderRadius: {
-        xl: "0.5rem",
-        "2xl": "0.75rem"
-      },
-      backgroundImage: {
-        "technical-grid":
-          "linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px)",
-        "light-grid":
-          "linear-gradient(rgba(20, 26, 31, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 26, 31, 0.055) 1px, transparent 1px)",
-        "hazard-stripe":
-          "repeating-linear-gradient(135deg, rgba(217, 141, 5, 0.2) 0 10px, transparent 10px 20px)",
-        "brushed-metal":
-          "linear-gradient(115deg, rgba(255,255,255,0.08), transparent 32%), repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 5px)"
+        xl: "1.25rem",
+        "2xl": "1.75rem",
+        "3xl": "2rem"
       }
     }
   },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { IBM_Plex_Mono, Manrope } from "next/font/google";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./globals.css";
 import { SITE_DESCRIPTION, SITE_TITLE, business } from "@/lib/site-data";
 
@@ -9,12 +10,22 @@ const manrope = Manrope({
   display: "swap"
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["cyrillic", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-mono",
+  display: "swap"
+});
+
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://rombensonn.github.io/katyusha-autoservice-podolsk").replace(/\/$/, "");
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  icons: {
+    icon: `${siteUrl}/favicon.ico`
+  },
   alternates: {
     canonical: "/"
   },
@@ -27,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/katyusha-industrial-hero.png",
+        url: `${siteUrl}/images/katyusha-industrial-hero.png`,
         width: 1200,
         height: 675,
         alt: "Нейтральный технический визуал автосервиса"
@@ -38,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/images/katyusha-industrial-hero.png"]
+    images: [`${siteUrl}/images/katyusha-industrial-hero.png`]
   },
   robots: {
     index: true,
@@ -82,7 +93,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="ru" className={manrope.variable}>
+    <html lang="ru" className={`${manrope.variable} ${ibmPlexMono.variable}`}>
       <body>
         <script
           type="application/ld+json"

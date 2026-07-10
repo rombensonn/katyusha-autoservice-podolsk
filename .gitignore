@@ -7,3 +7,4 @@ dist
 leads
 *.log
 *.tsbuildinfo
+.playwright-cli
