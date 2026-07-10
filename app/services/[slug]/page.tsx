@@ -224,24 +224,15 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
             <aside className="bezel-shell lg:sticky lg:top-28" data-scroll data-scroll-speed="-0.18">
               <div className="bezel-core overflow-hidden">
-                <div className="relative h-56">
-                  <Image
-                    src={sitePath(page.heroImage)}
-                    alt={page.heroImageAlt}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 430px, 100vw"
-                    className="image-grade object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-steel-950/86 via-steel-950/18 to-transparent" aria-hidden />
-                </div>
-                <div className="relative flex h-56 items-center justify-center border-t border-white/10 bg-white/[0.035]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_44%,rgba(255,201,71,0.2),transparent_48%)]" aria-hidden />
+                <div className="relative flex h-[370px] items-center justify-center overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_50%_42%,rgba(255,201,71,0.2),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012))] sm:h-[430px] lg:h-[440px]">
+                  <div className="absolute left-1/2 top-[47%] aspect-square w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.07]" aria-hidden />
+                  <div className="absolute left-1/2 top-[47%] aspect-square w-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-signal-300/[0.08]" aria-hidden />
+                  <div className="absolute bottom-12 left-1/2 h-12 w-64 -translate-x-1/2 rounded-full bg-signal-300/10 blur-3xl" aria-hidden />
                   <ServiceModel3D
                     variant={page.model}
                     priority
-                    className="relative z-10 h-full w-full max-w-[315px] opacity-95"
-                    sizes="315px"
+                    className="relative z-10 h-full w-full max-w-[340px] opacity-100 sm:max-w-[380px] lg:max-w-[390px]"
+                    sizes="(min-width: 1024px) 390px, (min-width: 640px) 380px, 340px"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3 p-5">
