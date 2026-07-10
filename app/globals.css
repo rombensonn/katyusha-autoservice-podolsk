@@ -182,6 +182,20 @@ select:focus-visible {
   animation: model3d-image-float 8s cubic-bezier(0.32,0.72,0,1) infinite alternate;
 }
 
+.model3d-img-static {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .service-hero-copy {
+    animation: service-hero-copy-in 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .service-hero-visual {
+    animation: service-hero-visual-in 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .model3d-img {
     animation: none;
@@ -195,5 +209,25 @@ select:focus-visible {
 
   to {
     transform: translate3d(0, -7px, 0) rotate(1.2deg) scale(1.015);
+  }
+}
+
+@keyframes service-hero-copy-in {
+  from {
+    transform: translate3d(0, 22px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes service-hero-visual-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

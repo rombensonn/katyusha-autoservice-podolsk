@@ -189,56 +189,56 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       <SmoothScrollShell className="industrial-surface overflow-hidden pb-24 text-white md:pb-0">
         <JsonLd data={[serviceSchema, breadcrumbSchema, faqSchema]} />
         <section id="top" data-scroll-section className="relative overflow-hidden border-b border-white/10 pt-24">
-          <div className="container-page grid gap-10 pb-16 pt-12 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-center lg:pb-24 lg:pt-20">
-            <div>
-              <Link
-                href="/#services"
-                className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm font-extrabold text-steel-200 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-signal-300/45 hover:text-white"
-              >
-                <ArrowLeft className="h-4 w-4" weight="bold" aria-hidden />
-                Все услуги
-              </Link>
-              <Badge className="mt-7">{page.eyebrow} в Подольске</Badge>
-              <h1 className="mt-6 max-w-4xl text-balance text-[2.85rem] font-black leading-[0.96] text-white sm:text-6xl lg:text-[4.5rem]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_42%,rgba(255,201,71,0.09),transparent_28rem)]" aria-hidden />
+          <div className="container-page relative grid gap-12 py-8 lg:min-h-[calc(100dvh-6rem)] lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center lg:gap-14 lg:py-10">
+            <div className="service-hero-copy max-w-[760px] lg:-mt-8">
+              <div className="flex flex-wrap items-center gap-3 text-sm font-extrabold">
+                <Link
+                  href="/#services"
+                  className="group inline-flex cursor-pointer items-center gap-2 text-steel-300 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-white"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/[0.055] transition-colors duration-500 group-hover:border-signal-300/45 group-hover:bg-white/10">
+                    <ArrowLeft className="h-4 w-4" weight="bold" aria-hidden />
+                  </span>
+                  Все услуги
+                </Link>
+                <span className="h-4 w-px bg-white/14" aria-hidden />
+                <span className="text-signal-200">{page.eyebrow} в Подольске</span>
+              </div>
+              <h1 className="mt-8 max-w-[760px] text-balance text-[2.75rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-5xl lg:text-[3.1rem] xl:text-[3.25rem]">
                 {page.h1}
               </h1>
-              <p className="mt-6 max-w-3xl text-lg font-extrabold leading-8 text-steel-100 sm:text-xl">
-                {page.answer}
+              <p className="mt-6 max-w-[58ch] text-base font-semibold leading-7 text-steel-200 sm:text-lg">
+                {page.heroLead}
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 hidden flex-col gap-3 md:flex md:flex-row">
                 <ButtonLink href="/#lead" icon={CalendarCheck}>
                   Записаться
                 </ButtonLink>
-                <a
-                  href={`tel:${business.phone}`}
-                  className="group inline-flex min-h-12 cursor-pointer items-center justify-center gap-3 rounded-full border border-white/16 bg-white/9 px-3 py-2 pl-6 text-sm font-extrabold text-white shadow-inner-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-signal-300/50 hover:bg-white/13 active:scale-[0.98]"
-                  aria-label={`Позвонить ${business.phoneFormatted}`}
-                >
-                  <span className="whitespace-nowrap">{business.phoneFormatted}</span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-signal-200 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5">
-                    <Phone className="h-4 w-4" weight="bold" aria-hidden />
-                  </span>
-                </a>
+                <ButtonLink href={`tel:${business.phone}`} variant="secondary" icon={Phone} ariaLabel={`Позвонить ${business.phoneFormatted}`}>
+                  Позвонить
+                </ButtonLink>
               </div>
             </div>
 
-            <aside className="bezel-shell lg:sticky lg:top-28" data-scroll data-scroll-speed="-0.18">
-              <div className="bezel-core overflow-hidden">
-                <div className="relative flex h-[370px] items-center justify-center overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_50%_42%,rgba(255,201,71,0.2),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012))] sm:h-[430px] lg:h-[440px]">
-                  <div className="absolute left-1/2 top-[47%] aspect-square w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.07]" aria-hidden />
-                  <div className="absolute left-1/2 top-[47%] aspect-square w-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-signal-300/[0.08]" aria-hidden />
-                  <div className="absolute bottom-12 left-1/2 h-12 w-64 -translate-x-1/2 rounded-full bg-signal-300/10 blur-3xl" aria-hidden />
-                  <ServiceModel3D
-                    variant={page.model}
-                    priority
-                    className="relative z-10 h-full w-full max-w-[340px] opacity-100 sm:max-w-[380px] lg:max-w-[390px]"
-                    sizes="(min-width: 1024px) 390px, (min-width: 640px) 380px, 340px"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3 p-5">
-                  <HeroFact label="Адрес" value={business.addressShort} icon={MapPin} />
-                  <HeroFact label="Рейтинг" value={`${business.rating}, ${business.ratingsCount} оценки`} icon={ShieldCheck} />
-                </div>
+            <aside
+              className="service-hero-visual relative isolate overflow-hidden rounded-[2rem] border border-white/12 bg-steel-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.11),0_32px_90px_rgba(3,7,10,0.38)] lg:translate-y-4"
+              data-scroll
+              data-scroll-speed="-0.14"
+            >
+              <div className="relative flex h-[350px] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_44%,rgba(255,201,71,0.18),transparent_39%),linear-gradient(155deg,rgba(255,255,255,0.075),transparent_56%)] sm:h-[420px] lg:h-[430px]">
+                <div className="absolute bottom-10 left-1/2 h-10 w-56 -translate-x-1/2 rounded-full bg-signal-300/9 blur-3xl" aria-hidden />
+                <ServiceModel3D
+                  variant={page.model}
+                  priority
+                  animated={false}
+                  className="relative z-10 h-full w-full max-w-[350px] opacity-100 sm:max-w-[400px] lg:max-w-[410px]"
+                  sizes="(min-width: 1024px) 390px, (min-width: 640px) 400px, 350px"
+                />
+              </div>
+              <div className="grid grid-cols-[1.18fr_0.82fr] divide-x divide-white/10 border-t border-white/10 bg-steel-950/58">
+                <HeroFact label="Адрес" value={business.addressShort} icon={MapPin} />
+                <HeroFact label="Рейтинг" value={`${business.rating}, ${business.ratingsCount} оценки`} icon={ShieldCheck} />
               </div>
             </aside>
           </div>
@@ -524,9 +524,11 @@ function HeroFact({
   icon: typeof MapPin;
 }) {
   return (
-    <div className="rounded-[1.25rem] border border-white/10 bg-white/7 p-4">
-      <Icon className="h-5 w-5 text-signal-300" weight="duotone" aria-hidden />
-      <p className="mono-label mt-4 text-[0.68rem] font-bold text-steel-400">{label}</p>
+    <div className="min-w-0 p-5 sm:p-6">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-signal-300/20 bg-signal-300/10 text-signal-300">
+        <Icon className="h-[1.125rem] w-[1.125rem]" weight="duotone" aria-hidden />
+      </span>
+      <p className="mono-label mt-5 text-[0.68rem] font-bold text-steel-400">{label}</p>
       <p className="mt-2 text-sm font-black leading-5 text-white">{value}</p>
     </div>
   );

@@ -22,15 +22,16 @@ type ServiceModel3DProps = {
   className?: string;
   priority?: boolean;
   sizes?: string;
+  animated?: boolean;
 };
 
 const assetByVariant: Record<ServiceModelVariant, string> = {
-  maintenance: "/images/3d/service-maintenance.png",
-  engine: "/images/3d/service-engine.png",
-  chassis: "/images/3d/service-chassis.png",
-  electrical: "/images/3d/service-electrical.png",
-  body: "/images/3d/service-body.png",
-  exhaust: "/images/3d/service-exhaust.png",
+  maintenance: "/images/3d/service-maintenance.webp",
+  engine: "/images/3d/service-engine.webp",
+  chassis: "/images/3d/service-chassis.webp",
+  electrical: "/images/3d/service-electrical.webp",
+  body: "/images/3d/service-body.webp",
+  exhaust: "/images/3d/service-exhaust.webp",
   rating: "/images/3d/service-rating.png",
   reviewDiagnostics: "/images/3d/review-diagnostics.png",
   reviewSpeed: "/images/3d/review-speed.png",
@@ -44,7 +45,8 @@ export function ServiceModel3D({
   variant,
   className,
   priority = false,
-  sizes = "(min-width: 1024px) 320px, 220px"
+  sizes = "(min-width: 1024px) 320px, 220px",
+  animated = true
 }: ServiceModel3DProps) {
   return (
     <div className={cn("model3d", className)} aria-hidden="true">
@@ -54,7 +56,7 @@ export function ServiceModel3D({
         fill
         priority={priority}
         sizes={sizes}
-        className="model3d-img object-contain"
+        className={cn("model3d-img object-contain", !animated && "model3d-img-static")}
       />
     </div>
   );
